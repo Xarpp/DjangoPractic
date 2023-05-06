@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="container">
+	<div class="screen">
+		<div class="screen__content">
+			{% if error_message %}
+            	<label class="alertError">
+  				<input type="checkbox" class="alertCheckbox" autocomplete="off" />
+  					<div class="alert error">
+    					<span class="alertClose">X</span>
+    					<span class="alertText">{{ error_message }}
+   					 <br class="clear"/></span>
+  					</div>
+				</label>
+  			{% endif %}
+			<div class="login">
+ 				<h1>Авторизация</h1>
+    			<form method="post">
+					{% csrf_token %}
+      				<input type="text" name="username" placeholder="Имя пользователя" required="required"/>
+        			<input type="password" name="password" placeholder="Пароль" required="required" />
+        			<button type="submit" class="btn btn-primary btn-block btn-large">Войти</button>
+    			</form>
+				<p class="reg-str">Нет аккаунта? <a href="{% url 'registration' %}">Зарегистрироваться</a></p>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

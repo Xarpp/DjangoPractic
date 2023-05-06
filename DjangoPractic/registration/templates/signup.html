@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <form method="post" action="">
+    {% csrf_token %}
+    <div class="row">
+    <div class="col-6">
+    {{ form.username|as_crispy_field }}
+    </div>
+    <div class="col-6">
+    {{ form.password1|as_crispy_field }}
+    </div>
+    </div>
+    {{ form.first_name|as_crispy_field }}
+    {{ form.last_name|as_crispy_field }}
+    {{ form.patronymic|as_crispy_field }}
+    {{ form.sex|as_crispy_field }}
+    {{ form.country|as_crispy_field }}
+    {{ form.birth_date|as_crispy_field }}
+    {{ form.affiliation|as_crispy_field }}
+    {{ form.phone_number|as_crispy_field }}
+    {{ form.email|as_crispy_field }}
+    {{ form.checkbox|as_crispy_field }}
+    {{ form.checkbox1|as_crispy_field }}
+    {{ form.checkbox2|as_crispy_field }}
+
+    <button type="submit" class="btn btn-success">Зарегистрироваться</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <script>
+        $(function(){
+            if ($('#id_country :selected').val() != '146') {
+             $('#id_region').hide();
+             $('.region-filed').hide();
+             }
+            $(document).change(function() {
+                if ($('#id_country :selected').val() != '146') {
+                    $('#id_region').hide();
+                    $('.region-filed').hide();
+                }
+                else {
+                    $('#id_region').show();
+                    $('.region-filed').show();
+                }
+            });
+        });
+    </script>
+<div class="container">
+	<div class="screen">
+        <div class="screen__content">
+            {% if error_message %}
+                <label class="alertError">
+                    <input type="checkbox" class="alertCheckbox" autocomplete="off" />
+                        <div class="alert error">
+                            <span class="alertClose">X</span>
+                            <span class="alertText">{{ error_message }}<br class="clear"/></span>
+                        </div>
+                </label>
+            {% endif %}
+           <div class="register">
+                <form method="post" action="">
+                    <h1>Регистрация</h1>
+                        {% csrf_token %}
+                        <span class="label-reg">Имя: </span> {{ form.first_name }}
+                        <span class="label-reg">Фамилия: </span>{{ form.last_name }}
+                        <span class="label-reg">Отчество: </span>{{ form.middle_name }}
+                        <div class="form-select"><span class="label-reg">Пол: </span>{{ form.gender }}</div>
+                        <span class="label-reg">Дата рождения: </span>{{ form.birth_date }}
+                        <div class="form-select"><span class="label-reg">Принадлежность: </span>{{ form.affiliation }}</div>
+                        <span class="label-reg">Номер телефона: </span>{{ form.phone_number }}
+                        <span class="label-reg">Email: </span>{{ form.email }}
+                        <div class="form-select"><span class="label-reg">Страна: </span>{{ form.country }}</div>
+                        <div class="form-select"><span class="label-reg region-filed">Регион: </span>{{ form.region }}</div>
+                        <label class="label-reg checkbox-field">{{ form.checkbox }}Согласие на обработку персональных данных</label>
+                        <label class="label-reg checkbox-field">{{ form.checkbox1 }}Согласие на публичную оферту</label>
+                        <label class="label-reg checkbox-field">{{ form.checkbox2 }}Политика безопасности и работа с персональными данными</label>
+                        <button type="submit" class="btn btn-success">Зарегистрироваться</button>
+                        <p class="reg-str">Есть аккаунт? <a href="{% url 'login' %}">Войти</a></p>
+                </form>
+
+            </div>
+        </div>
+	</div>
+</div>
+{% endblock %}
