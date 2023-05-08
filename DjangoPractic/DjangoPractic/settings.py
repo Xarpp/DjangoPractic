@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'django_countries',
     'django.contrib.sites',
-    'account'
+    'account',
+    'django_registration',
 ]
 
 MIDDLEWARE = [
@@ -142,3 +143,14 @@ ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = True
 
 AUTH_USER_MODEL = 'registration.CustomUserFields'
 SITE_ID = 1
+
+# Activate from E-mail
+ACCOUNT_ACTIVATION_DAYS = 2
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+AUTH_USER_EMAIL_UNIQUE = True
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = False

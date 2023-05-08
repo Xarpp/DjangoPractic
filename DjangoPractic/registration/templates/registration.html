@@ -22,7 +22,16 @@
                 }
             });
         });
-    </script>
+
+        $(function(){
+            $("#id_phone_number").mask("+7(999) 999-9999");
+        });
+
+        function noDigits(event) {
+            if ("1234567890".indexOf(event.key) != -1)
+                event.preventDefault();
+        };
+</script>
 <div class="container">
 	<div class="screen">
         <div class="screen__content">

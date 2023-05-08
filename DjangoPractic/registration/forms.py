@@ -86,15 +86,23 @@ class MyDateInput(forms.DateInput):
 
 
 class RegistrationForm(forms.ModelForm):
-    last_name = forms.CharField(label='Фамилия')
-    first_name = forms.CharField(label='Имя')
-    middle_name = forms.CharField(label='Отчество (При наличии)', required=False)
+    last_name = forms.CharField(label='Фамилия',
+                                widget=forms.TextInput(attrs={'onkeypress': 'noDigits(event)',
+                                                              'placeholder': 'Иванов'}))
+    first_name = forms.CharField(label='Имя',
+                                 widget=forms.TextInput(attrs={'onkeypress': 'noDigits(event)',
+                                                               'placeholder': 'Иван'}))
+    middle_name = forms.CharField(label='Отчество (При наличии)', required=False,
+                                  widget=forms.TextInput(attrs={'onkeypress': 'noDigits(event)',
+                                                                'placeholder': 'Иванович'}))
     gender = forms.ChoiceField(label='Пол', choices=SEX)
     birth_date = forms.DateField(label='Дата рождения', widget=MyDateInput({
-             'class': 'form-control '}))
+        'class': 'form-control '}))
     affiliation = forms.ChoiceField(label='Принадлежность', choices=AFFILIATION)
-    phone_number = forms.CharField(label='Номер телефона')
-    email = forms.EmailField(label='E-mail')
+    phone_number = forms.CharField(label='Номер телефона',
+                                   widget=forms.TextInput(attrs={'placeholder': '+7(999) 999-9999'}))
+    email = forms.EmailField(label='E-mail',
+                             widget=forms.TextInput(attrs={'placeholder': 'example@mail.ru'}))
     country = forms.ChoiceField(label='Страна', choices=COUNTRY_CHOICES)
     region = forms.ChoiceField(label='Регион', choices=REGIONS_CHOICES)
     checkbox = forms.BooleanField()
