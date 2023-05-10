@@ -2,9 +2,29 @@
 
 {% block content %}
 
-<h1>Регистрация завершена</h1>
-Спасибо за уделённое время. На ваш e-mail отправлен
-код подтверждения. Необходимо подтвердить регистрацию,
-просто кликнув по указанной ссылке.<br/><br/>
+{% load static %}
+
+<div class = "col-md-8 mx-auto info-message">
+    <h1>Регистрация завершена</h1>
+    Спасибо за уделённое время. На ваш e-mail отправлен код подтверждения.
+    Необходимо подтвердить регистрацию, просто кликнув по указанной ссылке. <br>
+    <p>Вы будите перенаправлены на страницу входа через:
+    <p class="time-left"></p>
+</div>
+
+
+
+<script>
+    var delay = 5,
+    output = $('.time-left').text(delay),
+    timer = setInterval(function() {
+        output.text(--delay);
+        if (!delay) {
+            clearInterval(timer);
+            window.location.href = "{% url 'login' %}";
+        }
+    }, 1000);
+</script>
+
 
 {% endblock %}

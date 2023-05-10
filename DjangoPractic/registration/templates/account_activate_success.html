@@ -1,7 +1,29 @@
-{% extends "base.html" %}
+{% extends "base.html"  %}
+
 {% block content %}
-<h1>Активация</h1>
-Привет, {{ account }}!<br/>
-Ваша учетная запись активирована. <a href="{% url 'login' %}">Заходите</a> на сайт.
-<br/><br/>
+
+{% load static %}
+
+<div class = "col-md-8 mx-auto info-message">
+    <h1>Аккаунт подтвержден</h1> <br>
+    Учетная запись активирована, спасибо за уделенное время.<br>
+    <p>Вы будите перенаправлены на страницу авторизации через:
+    <p class="time-left"></p>
+</div>
+
+
+
+<script>
+    var delay = 5,
+    output = $('.time-left').text(delay),
+    timer = setInterval(function() {
+        output.text(--delay);
+        if (!delay) {
+            clearInterval(timer);
+            window.location.href = "{% url 'login' %}";
+        }
+    }, 1000);
+</script>
+
+
 {% endblock %}

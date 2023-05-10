@@ -6,9 +6,60 @@ html {
 .alertError {
     display: flex;
     justify-content: center;
-    margin-bottom: 0.5rem;
-    margin-top: 10%;
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    margin: -250px 0 0 -250px;
+    width: 500px;
 }
+
+/*=== Alert animation START ===*/
+.animate {
+  -webkit-animation-duration: 0.3s;
+  animation-duration: 0.3s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.two {
+-webkit-animation-delay: 0.1s;
+-moz-animation-delay: 0.1s;
+animation-delay: 0.1s;
+}
+
+@-webkit-keyframes fadeInDown {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+.fadeInDown {
+  -webkit-animation-name: fadeInDown;
+  animation-name: fadeInDown;
+}
+
+/*=== Alert animation END ===*/
 
 .btn-success{
     position: relative;
@@ -41,6 +92,17 @@ html {
     width: 800px;
 }
 
+.time-left{
+    font-size: 100px;
+    margin: -20px;
+}
+
+.col-md-8.mx-auto.info-message {
+    color: wheat;
+    font-size: 20px;
+    line-height: revert;
+    max-width: 100%;
+}
 .btn-logout-center{
     position: relative;
     left: 50%;
@@ -382,4 +444,8 @@ select{
     font-size: 17px;
     text-align: center;
     color: #fff;
+}
+
+p {
+    margin-top: 15px;
 }

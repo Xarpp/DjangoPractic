@@ -1,1 +1,29 @@
-Ошибка активации аккаунта
+{% extends "base.html"  %}
+
+{% block content %}
+
+{% load static %}
+
+<div class = "col-md-8 mx-auto info-message">
+    <h1>Ошибка активации аккаунта</h1>
+    При активации аккаунта произошла ошибка, попробуй перезагрузить страницу или попробовать позже <br>
+    <p>Вы будите перенаправлены на страницу входа через:
+    <p class="time-left"></p>
+</div>
+
+
+
+<script>
+    var delay = 5,
+    output = $('.time-left').text(delay),
+    timer = setInterval(function() {
+        output.text(--delay);
+        if (!delay) {
+            clearInterval(timer);
+            window.location.href = "{% url 'login' %}";
+        }
+    }, 1000);
+</script>
+
+
+{% endblock %}

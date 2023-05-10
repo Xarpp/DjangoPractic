@@ -1,5 +1,9 @@
+import datetime
+
 from django.utils import timezone
 from django import forms
+from django_registration.forms import User
+
 from .models import CustomUserFields, SEX, AFFILIATION, COUNTRY_CHOICES, REGIONS_CHOICES
 
 
@@ -109,11 +113,20 @@ class RegistrationForm(forms.ModelForm):
     checkbox1 = forms.BooleanField(label='Согласие на публичную оферту')
     checkbox2 = forms.BooleanField(label='Политика безопасности и работа с персональными данными')
 
-    def clean(self):
-        cleaned_data = super().clean()
-        birth_date = cleaned_data.get('birth_date')
+    def clean_birth_date(self):
+        birth_date = self.cleaned_data.get('birth_date')
         if birth_date and birth_date > timezone.now().date():
             raise forms.ValidationError('Дата рождения не может быть больше текущей даты')
+        age = (timezone.now().date() - birth_date).days / 365
+        if age < 18:
+            raise forms.ValidationError('Регистрация доступна для лиц старше 18 лет')
+        return birth_date
+
+    def clean_email(self):
+        email = self.cleaned_data["email"]
+        if User.objects.filter(email__iexact=email).exists():
+            raise forms.ValidationError("Адрес электронной почты уже зарегистрирован")
+        return email
 
     class Meta:
         model = CustomUserFields

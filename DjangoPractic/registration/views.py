@@ -19,21 +19,23 @@ def registration(request):
         if form.is_valid():
             # Create random password
             user = form.save(commit=False)
-
             user.is_active = False
-
             raw_password = User.objects.make_random_password(length=8)
             user.set_password(raw_password)
-            # Activate from E-mail
 
+            # Activate from E-mail
             user.save()
             send_activation_email(request, user, raw_password)
 
             return redirect('/account_activation_sent')
+        else:
+            errors = form.errors
+            error_message = form.errors
     else:
+        error_message = ''
         form = RegistrationForm()
 
-    return render(request, 'registration.html', {'form': form})
+    return render(request, 'registration.html', {'form': form, 'error_message': error_message})
 
 
 def login_user(request):
@@ -77,12 +79,8 @@ def activate(request, uidb64, token):
         user = None
 
     if user is not None and default_token_generator.check_token(user, token):
-        print('Не прошло')
         user.is_active = True
         user.save()
-        return redirect(reverse('login'))
-
-    if not default_token_generator.check_token(user, token):
         return render(request, 'account_activate_success.html')
 
     return render(request, 'activation_invalid.html')

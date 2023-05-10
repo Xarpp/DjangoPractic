@@ -36,11 +36,20 @@
 	<div class="screen">
         <div class="screen__content">
             {% if error_message %}
-                <label class="alertError">
+                <label class="alertError animate fadeInDown two">
                     <input type="checkbox" class="alertCheckbox" autocomplete="off" />
                         <div class="alert error">
                             <span class="alertClose">X</span>
-                            <span class="alertText">{{ error_message }}<br class="clear"/></span>
+                            <span class="alertText">
+                                {% if form.errors %}
+                                    {% for field in form %}
+                                        {% for error in field.errors %}
+                                            {{ error|escape }}
+                                            <br class="clear"/>
+                                        {% endfor %}
+                                    {% endfor %}
+                                {% endif %}
+                            </span>
                         </div>
                 </label>
             {% endif %}
